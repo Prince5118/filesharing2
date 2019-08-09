@@ -1,0 +1,51 @@
+{% extends 'file/base.html' %}
+
+{% block title %}
+    <title>
+      Upload File
+    </title>
+{% endblock %} 
+
+{% block style %}
+ <style>
+    table {
+      margin: auto;
+    }
+    #menudiv{
+      width: auto;
+      height: auto;
+      text-align: center;
+    }
+    #button
+    {
+      text-align: center;
+      width: 250px;
+      height: 30px;
+    }
+    #container
+    {
+      text-align: center;
+    }
+  </style>
+{% endblock %} 
+
+{% block content %} 
+  <div id = "container">
+    <h2> Select a file to Upload</h2>
+    <form action="{{ request.build_absolute_uri }}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id = "button" name="file"/>
+        </br>
+        </br>
+        <input type="submit" id = "button" value="Upload File to Drive" />
+    </form>
+    </br> 
+    <form action="/" method="GET">
+      <input type="submit" id ="button" value="Home" />
+    </form>
+    </br>
+    <form action="/logout" method="GET">
+      <input type="submit" id ="button" value="Logout" />
+    </form>
+  </div>
+{% endblock %} 

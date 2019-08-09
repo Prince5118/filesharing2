@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SignUp</title>
+    <style>
+    #button
+    {
+      width: 250px;
+      height: 30px;
+    }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <h2>Sign up</h2>
+    <form method="post">
+        {% csrf_token %}
+    {{ form.as_p }}
+      <!-- -->
+  
+   Email: <input type="text" name="emailid" placeholder = "example@gmail.com"  required>
+  
+  <!-- --><br>
+    <button id= "button" type="submit"><b>SIGNUP</b></button>
+  </form>
+</br>
+  <form action= '/login' method="GET">
+    <button id = "button" type="submit">Already a user!  <b>LOGIN</b></button>
+</form>
+  <ul>On Successfull User Creation you are redirected to <b>Login Page</b> Automatically</ul>
+{% endblock %}
+</body>
+</html>
+

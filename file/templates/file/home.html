@@ -1,0 +1,240 @@
+{% extends 'file/base.html' %}
+
+{% block title %}
+{% load static %}
+    <title>
+      Home
+    </title>
+{% endblock %}
+
+{% block style %}
+  <style>
+    div.a {
+  text-align: center;
+}
+    #menudiv
+    {
+      width: auto;
+      height: auto;
+      text-align: center;
+      vertical-align: bottom;
+    }
+    #button1
+    {
+
+      width: 270px;
+      height: 30px;
+      top: 80%;
+    }
+    #box1
+    {
+    /* background-color: lightgrey; */
+    justify-content: space-between;
+    background-color: white;
+    position: relative;
+  top:10%;left:30%;
+        width: 40%;
+    height:500px;
+    /* border: 5px solid green; */
+    border: 2px solid black;
+    padding: 10px;
+    margin: 00px;
+    }
+    #box2
+    {justify-content: space-between;
+    background-color: white;position:absolute;
+
+width:40%;
+    top:80%;
+  left:30%;
+  
+    border: 2px solid black;
+    padding: 10px;
+    margin: 0px;
+    }
+
+    #box3
+    {
+justify-content: space-between;
+    background-color: white;
+    position: relative;
+    align-content: center;
+    top:80px;
+    left:700px;
+    height:80px;
+    border: 5px black;
+    padding: 10px;
+    margin: 0px;
+    }
+#prince{ position:fixed; top:10px;left:10px;color:White;}
+#first-r  { left: 10%; position: relative; }
+#second-r { left: 40%; position: relative; }
+#third-r  { left: 20%; position: relative; }
+#fourth-r { left: 50%; position: relative; }
+    .container-login100 
+    {
+    width: 100%;  
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #9053c7;
+    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+  }
+  .wrap-login100 {
+  width: 80%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 800px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 50px 50px 50px 50px;
+}
+
+/* ------------------------------------ */
+.downloadbtn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.downloadbtn:hover {
+  background-color: RoyalBlue;
+}
+
+/* ------------------------------------ */
+  </style>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/radio.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrapfont.css' %}">
+
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/homemaxcdnbootstrap.css' %}">
+
+<!-- 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+-->
+
+
+<script type="text/javascript" src="{% static 'js/ajaxjqueryhome.js' %}'></script>
+<script type="text/javascript" src="{% static 'js/sharefilemaxcdnbootstrap.js' %}"></script>
+
+
+{% endblock %}
+
+{% block content %}
+  <div class="container-login100">
+<div id="prince">
+
+{% if val %}
+<a href="http://10.35.28.189:8000/uadmin" target="_blank">Monitor</a>
+{% endif %}
+
+
+</div>
+    <div class="wrap-login100">
+
+      <!-- -->
+
+
+
+
+
+       
+          {% if error_message %}
+              <p><strong>{{ error_message }}</strong></p>
+          {% endif %}
+
+
+
+
+
+             <!--ADDING DOWNLOAD BUTTON -->
+<div id="box1">
+
+        <form action="/download" method="POST" >
+          {% csrf_token %}
+          {% for file in files %}
+
+              <div class="inputGroup">
+                 <input type="radio" id="radio{{  forloop.counter }}" required="required" name="filename" value="{{ file.name }}" />
+                <label for="radio{{  forloop.counter }}">{{file.name}}</label>
+              </div>
+
+          {% endfor %}
+          <br>
+
+          <!--  <button type="submit" class="btn btn-info btn-lg"> <span class="fa fa-download"></span>Download</button>  -->
+
+          <button type="submit" class="btn btn-info btn-lg" id="first-r"> <span class="glyphicon glyphicon-download-alt" ></span>Download</button>
+
+          <button type="submit" class="btn btn-info btn-lg" id="second-r" formaction="/sharefile"> <span class="glyphicon glyphicon-share" ></span>Share  </button>
+          <br>
+
+
+
+
+
+
+          <br>
+          <!-- Paginator-->
+          {% if files.has_previous %}
+              <a href="?page=1" style="text-decoration:none; font-size: 18px";>&raquo;First </a>
+              <a href="?page={{ files.previous_page_number }}" style="text-decoration:none; font-size: 18px">&emsp;&emsp;&emsp;&emsp;Previous </a>
+          {% endif %}
+          {% if files.has_next %}
+              <a href="?page={{ files.next_page_number }}" style="text-decoration:none; font-size: 18px">Next</a>
+              <a href="?page={{ files.paginator.num_pages }}" style="text-decoration:none; font-size: 18px">&emsp;&emsp;&emsp;&emsp;Last &raquo;</a>
+          {% endif %}
+        </form>
+       
+        <!-- WARNING MESSAGE-->
+        <h3 align=center>{{ warn_msg }}</h3>
+
+</div>
+      <!-- UPLOAD SHARE AND LOGOUT BUTTON -->
+        <div id = "box2">
+
+        <a href="/upload" class="btn btn-info btn-lg" id="third-r">
+          <span class="glyphicon glyphicon-cloud-upload" ></span> Upload 
+        </a>
+
+        <a href="/logout" class="btn btn-info btn-lg" id="fourth-r">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+
+
+        </div>
+
+</div>
+</div>
+{% endblock %}

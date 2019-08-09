@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/radio.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrapfont.css' %}">
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/uadmin.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+<!--===============================================================================================-->
+
+
+<style>
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+#myInput {
+  border-box: box-sizing;
+  background-image: url('https://image.flaticon.com/icons/png/512/954/954591.png');
+  background-size: 20px 20px;
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+.dropdown {
+  position: relative;
+  height: 400px;
+  display: inline-block;
+ 
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  z-index: 1;
+  height:400px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #d27536;
+}
+
+div.ex1
+{
+height:150px;
+font-size: 20px;
+line-height: 10px;
+max-size:3;
+overflow:scroll;
+}
+
+#box1
+{
+    /* background-color: lightgrey; */
+    background-color: white;
+    position: relative;
+    width: 300px;
+    left: 40%;
+    height:300px;
+    /* border: 5px solid green; */
+    border: 2px solid black;
+    padding: 10px;
+    margin: 00px;
+}
+#box2
+{
+    /* background-color: lightgrey; */
+    background-color: blue;
+    position: absolute;
+    width: 300px;
+    left: 40px;
+    height:100px;
+    top:500px;
+    /* border: 5px solid green; */
+    border: 2px solid black;
+    padding: 0px;
+    margin: 00px;
+}
+
+.row.align-item-start {
+  align-items: flex-start;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+</style>
+
+
+
+
+</head>
+<body>
+
+
+<center>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Select Users</button>
+        <form action="/userexpiry/{{nameoffile}}/" method="POST" >
+          {% csrf_token %}
+        <div id="myDropdown" class="dropdown-content">
+            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+           
+              <!-- RECIVER CHOICE -->
+            <div class="ex1" align="left">
+ 
+                {% for item in users %}
+                    <a href="#"><input type="checkbox" name="recievers" value="{{item}}"/></label>{{item}}</a>
+                {% endfor %}
+               
+            </div>
+          <!-- EXPIRY CHOICES-->
+            <div  class="row align-item-start" class="ex2"  align="left">
+              <h2>Select Time to Share</h2>
+		    <input type="radio" id="0" name="expirychoice" value="1" required="required" />
+                    <label for="0">1 Minutes</label><br>
+                    <input type="radio" id="1" name="expirychoice" value="10" required="required" />
+                    <label for="1">10 Minutes</label><br>
+                     <input type="radio" id="2" name="expirychoice" value="30" required="required" />
+                    <label for="2">30 Minutes</label><br>
+                     <input type="radio" id="3" name="expirychoice" value="60" required="required" />
+                    <label for="3">1 Hour</label><br>
+                     <input type="radio" id="4" name="expirychoice" value="1440" required="required" />
+                    <label for="4">1 Day</label><br>
+            </div>
+
+          <div  align="center">
+              <button class="button button2">Submit</button>            </div>
+          </div>
+      </form>
+      </div>
+</center>
+
+</div>
+</div>
+</div>
+
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+var expanded = false;
+
+
+</script>
+
+</body>
+</html>
+
