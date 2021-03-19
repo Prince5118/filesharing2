@@ -3,7 +3,7 @@ cffi==1.12.3
 cryptography==2.7
 Django==1.11
 django-extensions==2.1.7
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 enum34==1.1.6
 ipaddress==1.0.22
 MySQL-python==1.2.5
